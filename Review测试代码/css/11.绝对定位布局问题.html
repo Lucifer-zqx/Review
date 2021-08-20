@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绝对定位布局问题</title>
+    <style>
+        
+        .box1{
+            width: 400px;
+            height: 400px;
+            background-color: aqua;
+            position: relative;
+        }
+        .box2{
+            
+            width: 100px;
+            height: 100px;
+            background-color: blanchedalmond;
+            position: absolute;
+            /* 偏移量不写时 默认值为auto,当left/right（top/bottom）同时为auto时，设置（left/top）的值为0*/
+            margin: auto;
+            left: 0;
+            right: 0; 
+            /* 当margin和偏移量同时为auto时，以偏移量为准*/
+            bottom: 0;
+            top: 0;
+            /* 利用此特点让元素水平垂直居中 */
+
+            /*调整的优先级*/
+
+            /*偏移量>宽度/高度>margin*/
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+    
+   
+</body>
+</html>

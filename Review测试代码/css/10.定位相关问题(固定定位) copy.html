@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位相关问题(固定定位)</title>
+    <style>
+        
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            /* 相对于浏览器视口进行定位 ，不会随滚动条的滚动变化 */
+            position: fixed;
+            left: 0;
+            top: 0; 
+        }
+        .box2{
+            height: 20000px;
+            background-color: blanchedalmond;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="box1">1</div>
+    <div class="box2">2</div>
+    <!-- 观察现象可见：固定定位会让元素脱离文档流，提高了元素的层级、其参考的定位点为其包含块 -->
+</body>
+</html>

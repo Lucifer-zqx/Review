@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位相关问题(绝对定位)</title>
+    <style>
+        
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+           /* 开启绝对定位 元素脱离文档流，未设置偏移量的时候元素位置不变，提高了元素的层级*/ 
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .box3{
+            width: 200px;
+            height:200px;
+            background-color: rgb(0, 204, 255);
+        }
+        /* box2的包含块*/
+        .outer{
+            width: 400px;
+            height: 400px;
+            background-color: tomato;
+            position: relative;
+        }
+        a{
+            /* 脱离文档流的内联元素  变成行内块元素（不具有块元素单独占一行的特点）*/
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: blanchedalmond;
+            text-align: center;
+            line-height: 100px;
+            text-decoration: none;
+            color: black;
+        }
+        .footer{
+            background-color: brown;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box1">1</div>
+    <div class='outer'>
+        <div class="box2">2</div>
+    </div>
+    <div class="box3">3</div>
+    <a href="#">百度</a>
+    <div  class='footer'>11111</div>
+    <!-- 观察现象可见：绝对定位会让元素脱离文档流，提高了元素的层级、其参考的定位点为其包含块 -->
+</body>
+</html>
