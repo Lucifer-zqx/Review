@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自适应布局(横向)</title>
+    <style>
+        .left {
+            width: 100px;
+            height: 500px;
+            background-color: red;
+            float: left;
+        }
+
+        .right {
+            width: 100px;
+            height: 500px;
+            background-color: #00f;
+            float: right;
+        }
+        /* float + margin */
+        /* .center {
+            height: 500px;
+            margin: 0 200px;
+            background-color: #f0f;
+        } */
+
+        /* float + 绝对定位*/
+        .center{
+            position: absolute;
+            height: 500px;
+            left: 200px;
+            right: 200px;
+            background-color: orange;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="left">左</div>
+    <div class="right">右</div>
+    <div class="center">中</div>
+
+</body>
+
+</html>

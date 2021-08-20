@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脱离文档流的元素特点</title>
+    <style>
+        .box1{
+            width: 300px;
+            height: 100px;
+            background-color: #bfa;
+            float: left;
+        }
+        .box2{
+            width: 600px;
+            height: 200px;
+            background-color: orange;
+            float: left;
+        }
+        span{
+            background-color: aqua;
+           width: 100px;
+           height: 100px;
+           /* position: absolute; */
+           margin: 50px;  /*只对水平方向起作用*/
+           padding: 50px; /*只对水平方向起作用*/
+           border: 50px solid red; /*只对水平方向起作用*/
+           position: absolute;  /* 脱离文档流后：以上属性全部有效 */
+           line-height: 100px;
+           text-align: center;
+           left: 50%;
+           transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <!-- <div class="box2"></div> -->
+    <span>hahaha</span>
+</body>
+</html>

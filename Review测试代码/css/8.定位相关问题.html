@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位相关问题</title>
+    <style>
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            position: relative;
+            top: -100px;
+            left: 80px;
+        }
+        .box3{
+            width: 100px;
+            height:100px;
+            background-color: red;
+        }
+        a{
+            position: relative;
+            top: -50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box1">1</div>
+    <div class="box2">2</div>
+    <div class="box3">3</div>
+    <a href="#">百度</a>
+    <!-- 观察现象可见：相对定位不会让元素脱离文档流，提高了元素的层级 -->
+</body>
+</html>
