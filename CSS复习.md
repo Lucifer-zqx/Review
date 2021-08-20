@@ -128,7 +128,35 @@
 标准情况下即box-sizing：content-box，盒子的实际宽高 = width/height+ padding + border + margin；而在怪异盒模型（丢失DOCTYPE时，IE6,7,8）即box-sizing：border-box，盒子的实际宽高 = width/height + margin，设置的padding和border不再单独参与盒子宽高的计算中，而是width/height = padding + border + 内容部分，超出时盒子会被撑开。
 
 ```html
-<img src='https://upload-images.jianshu.io/upload_images/16869140-3ff2f6f45f4cf8f7.png?imageMogr2/auto-orient/strip|imageView2/2/w/564/format/webp' />
+关于盒模型的一些注意点：
+	- 水平方向
+		1.子元素的盒子宽度，应该等于父元素的内容区的宽度。即：margin-left+border-left+padding-left+width+padding-right+border-right+margin-right.
+		2.当margin和width没有设置为auto时：
+			浏览器会自动调整margin-right的值，以满足等式
+		3.当margin-left，width其中之一设置为auto时：
+			浏览器会调整 属性值设置为auto的属性大小，以适应等式。
+		4.当margin-left，width同时设置为auto时：
+			浏览器将margin-left设置为0,自动调整width的值以满足等式。
+		5.当width为固定值，magin为auto时
+			浏览器平均分配margin-left和margin-right的值。我们常使用这一点来使元素			  水平居中
+	- 垂直方向
+		1.垂直方向无特殊等式的要求，可以随便设置。常使用的居中方式为text-aligin来使		  文本居中。
+		2.相邻兄弟元素间的***垂直居中***存在外边距重叠的问题。
+		  问题描述：
+			<style>
+    			.box1{
+        			margin-bottom = 100px
+    			}
+    			.box2{
+					margin-top = 100px
+    			}
+			</style>
+			<div calss='box1'></div>
+			<div calss='box2'></div>
+			两者之间的距离为100px,这就称为外边距重叠的问题。两者之间的实际距离为
+				同号：绝对值大的一方
+				异号：两者之和
+			
 ```
 
 ##### 5. css选择器
@@ -257,13 +285,40 @@
 ##### 9. 前端优化方案
 
 	1. link代替@import引入样式；
- 	2. 避免使用滤镜filter；
- 	3. js和css代码压缩；
- 	4. 减少iframe标签的使用；
- 	5. 使用体积更小的jpeg格式图片；
- 	6. css雪碧图；
- 	7. 懒加载；
- 	8. 避免重绘回流操作；
- 	9. 减少http请求次数；
- 	10. 缓存策略。
+	2. 避免使用滤镜filter；
+	3. js和css代码压缩；
+	4. 减少iframe标签的使用；
+	5. 使用体积更小的jpeg格式图片；
+	6. css雪碧图；
+	7. 懒加载；
+	8. 避免重绘回流操作；
+	9. 减少http请求次数；
+	10. 缓存策略。
 
+##### 11.  脱离文档流的元素的特点
+
+ 	1. 块级元素：
+     - 脱离文档流后，元素不再单独占一行，而是由内容撑开;
+     - 浮动的元素不会超过上方的块元素，也不会超过他的上一个浮动的兄弟元素
+ 	2. 行内元素（内联元素）：
+     - 脱离文档流后，元素成为内联块元素，可以设置宽高。
+     - 行内元素可以超过他上方的块元素
+     - 浮动的元素不会遮挡文字，文字总是环绕在浮动元素的周围
+
+
+
+##### 12. 关于定位
+
+ 	1. 相对定位
+     - position：relative；
+     - 特点：1、元素不会脱离文档流 2、参考点：元素本身在文档流的位置，即元素本身 3、可以设置偏移位置改变所在的位置。top、left、top、bottom。4.提高了元素的层级
+	2. 绝对定位
+    	- position :absolute
+    	- 特点：
+
+##### 13.自适应布局方法
+
+​	1.float+margin (适应横向布局)
+
+```
+<titl>
