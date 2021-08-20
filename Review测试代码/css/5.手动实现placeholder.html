@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手动实现placeholder</title>
+    <script>
+        function bl(){
+            var a = document.getElementById('test')
+            if(a.value.length === 0){
+                a.style.color="#999999";
+                a.value="请输入姓名";
+            }
+        }
+        function fo(){
+            var a = document.getElementById('test')
+            if(a.value=="请输入姓名"){
+                a.style.color="black";
+                a.value = ''
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <label>
+        测试：
+        <input type="text" id="test" value="请输入姓名" style="color: #999;" onblur="bl()" onfocus="fo()">
+    </label>
+</body>
+</html>

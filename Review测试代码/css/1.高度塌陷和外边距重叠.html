@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高度塌陷和外边距重叠</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box1{
+            border: 1px red solid;
+            /* 用bfc解决：开启bfc的元素可以包含浮动的子元素 */
+            /* overflow: hidden; */
+
+        }
+        /* 使用清除浮动的方式解决 */
+        .box1::after{
+            content: '';
+            display: block;
+            clear: both; /*清除两侧浮动影响较大的*/
+        }
+        .box2{
+            width: 200px;
+            height: 200px;
+            background-color: #bfa;
+            margin-top: 100px;
+            float: left;
+        }
+
+        .box3{
+            width: 400px;
+            height: 400px;
+            background-color: #bfa;
+        }
+        .box4{
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+            /* 发生外边距重叠的现象*/
+            margin-top: 200px;
+        }
+        /* 使用追加内容隔开外边距的方法 */
+        .box3::before{
+            content: '';
+            display: table;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+
+    <hr>
+
+    <div class="box3">
+        <div class="box4"></div>
+    </div>
+</body>
+</html>

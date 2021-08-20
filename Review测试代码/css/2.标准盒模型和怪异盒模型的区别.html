@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标准盒模型和怪异盒模型的区别</title>
+    <style>
+        .box1{
+            box-sizing: content-box;   /* 标准盒模型： 总宽=width+2*padding+2*border+2*margin */
+            width: 100px;
+            padding: 10px;
+            margin: 10px;
+            border: 10px red solid;
+        }
+        .box2{
+            box-sizing: border-box;  /* 怪异盒模型：总宽= width + 2*margin (width=(content_width)+ 2*padding+ 2*border)*/
+            /* 丢失DOCTYPE行为的html文件 在IE6，7，8呈现为怪异盒模型 */
+            width: 100px;
+            margin: 10px;
+            border: 10px red solid;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">盒子1</div>
+    <div class="box2">盒子2</div>
+</body>
+</html>

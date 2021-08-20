@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素水平垂直居中</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* .box1{
+            width: 100px;
+            height: 100px;
+            background-color: #bfa;
+            /*开启绝对定位，脱离文档流*/
+         /*   position: absolute;
+            left: 50%;
+            top: 50%;
+        } */
+        
+
+        /*flex布局水平垂直居中*/
+        /* .box1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #bfa;
+
+        }
+        .box2{
+            width: 50%;
+            height: 50%;
+            background-color: white;
+        } */
+
+        /*transform变形解决*/
+        /* .box1{
+            background-color: #bfa;
+            height: 100vh;
+        }
+        .box2{
+            width: 80%;
+            height: 60%;
+            background-color: white;
+            border-radius: 20px;
+            transform: translate(12.5%,33%);
+
+        } */
+
+        /*使用postion解决*/
+        /* .box1{
+            position: fixed; 
+            background-color: rgba(0, 0, 0, 0.7);
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+        .box2{
+            width: 80%;
+            height: 60%;
+            background-color: white;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        } */
+
+        /* 使用postion和transform完成 */
+        .box1{
+            background-color: rgba(0,0,0,0.7);
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+        .box2{
+            width: 80%;
+            height: 60%;
+            background-color: white;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class='box1'>
+        <div class="box2"></div>
+    </div>
+</body>
+</html>
