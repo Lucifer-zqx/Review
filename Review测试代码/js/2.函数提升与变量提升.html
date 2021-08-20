@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数提升与变量提升</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //函数提升优先于变量提升
+    //同名变量提升不会覆盖函数提升，只有在变量赋值的时候会覆盖函数提升
+    console.log(bar)    // f bar(){ console.log(123)}
+    console.log(bar())  //undefiend(因为函数执行的返回值没有写，那么返回值就是undefiend)
+    var bar = 456       //赋值
+    function bar(){
+        console.log(123) // 123
+    }
+    console.log(bar)  //同名的函数提升被覆盖，输出456
+    var bar = 789
+    console.log(bar)   //789
+    console.log(bar())  //报错bar不是一个函数
+</script>
+</html>
