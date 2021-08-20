@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自适应布局(横向)</title>
+    <style>
+        /* .left {
+            width: 100px;
+            height: 500px;
+            background-color: red;
+            float: left;
+        }
+
+        .right {
+            width: 100px;
+            height: 500px;
+            background-color: #00f;
+            float: right;
+        } */
+        /* float + margin
+            原理：由于给左右元素设置了float，所以脱离了文档流，那么身为块元素的center自然就向上拱。
+            center元素处于body中，其应满足等式2*margin+2*border+2*padding + width = body的width
+            由于设置了width为auto，所以会自动调整宽度自适应
+        */
+        /* .center {
+            height: 500px;
+            margin: 0 200px;
+            background-color: #f0f;
+        } */
+
+        /* float + 绝对定位*/
+        /*
+            原理：由于给左右元素设置了float，所以脱离了文档流。当给center设置绝对定位后，也脱离了文档流，其参考点为html根标签的原点。左右偏移量设置好后，自动会调整width以满足等式
+        */
+        /* .center{
+            position: absolute;
+            height: 500px;
+            left: 200px;
+            right: 200px;
+            background-color: orange;
+        } */
+
+        /* 绝对定位 + 绝对定位 */
+        /*
+            原理：包含块为html：
+            所以公式：200+0+0+0+width（auto）+0+0+0+200 = html的width
+        */
+        .left {
+            width: 100px;
+            height: 500px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+        }
+
+        .right {
+            width: 100px;
+            height: 500px;
+            background-color: #00f;
+            position: absolute;
+            right: 0;
+        }
+        .center{
+            position: absolute;
+            height: 500px;
+            left: 200px;
+            right: 200px;
+            background-color: bisque;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="left">左</div>
+    <div class="right">右</div>
+    <div class="center">中</div>
+
+</body>
+
+</html>

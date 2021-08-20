@@ -337,13 +337,17 @@
  		- 可以设置auto属性有margin width/height left right
  		- 当没有auto，且等式不满足时，浏览器会自动调整right的值以适应等式
  		- 当其中一个为auto时,调整属性值为auto属性以满足等式
- 		- 当left/right为auto，margin也为auto，优先调整left/right的值。
+ 		- 当left/right为auto，margin也为auto，优先调整left/right的值，其次为width，最后为margin。
 
 ##### 13.自适应布局方法
 
-​	1.float+margin (适应横向布局)
+```
+见代码
+```
+
+##### 14. 圣杯布局
 
 ```
-<titl>
+见代码
 ```
 
