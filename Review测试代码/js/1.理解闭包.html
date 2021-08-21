@@ -5,8 +5,142 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>理解闭包</title>
+    
+    <script>
+        //1：闭包怎么样产生？    当存在函数嵌套，内部函数引用了外部函数的变量/函数，就产生了闭包现象
+        //2：什么是闭包？       第一种理解：嵌套的内部函数；第二种理解：嵌套的内部函数所引用的变量
+        //3：闭包何时产生？     当存在闭包产生条件时，内部函数执行函数定义完成时，就产生了闭包。前提是：外部函数调用
+        
+
+        function f1(){
+            var a = 1
+            function f2(){
+                a++
+                console.log(a)
+            }
+            return f2
+        }
+
+        var f = f1()     //执行外部函数时，创建函数执行上下文，存在函数提升与变量提升。函数提升：也就是f2执行定义完成后，闭包就产生了。 
+                        // 关于函数执行后，局部变量是否销毁的问题？
+                            //f1执行完毕后，将返回值f2用变量f指向它，此时由于有变量指向他，所以闭包不会被GC，闭包中也保存了a这个局部变量
+        f()       //2
+        f()       //3
+
+
+
+        /******************************************************************************************************************/
+        var i = 0;
+        function outerFn(){
+            function innnerFn(){
+                i++;
+                console.log(i);
+            }
+            return innnerFn;
+        }
+        var inner1 = outerFn();
+        var inner2 = outerFn();
+        inner1();  //1
+        inner2();   //2
+        inner1();   //3
+        inner2();   //4
+
+        /***************************************************************************************************************/
+
+        /* 外部函数一次调用，如果有多个内部函数同时引用父函数的某一变量，那么这多个内部函数指向的是同一块内存地址
+            自己的思考：这么看来关于什么是闭包的理解，第二种较好，闭包是内部函数引用外部函数的那个变量
+        */
+        (function() { 
+            var m = 0; 
+            function getM() { return m; } 
+            function seta(val) { m = val; } 
+            window.g = getM; 
+            window.f = seta; 
+        })(); 
+        f(100);
+        console.info(g());  //100
+
+        /****************************************************************************************************************/
+        function test(){
+            var a  = 1;
+            function innerTest1(){
+                return a
+            }
+            function innerTest2(){
+                a++
+                return a
+            }
+            return {
+                innerTest1,
+                innerTest2
+            }
+        }
+        var outerTest1 = test()
+        //查看第一个函数闭包a的值
+        console.log(outerTest1.innerTest1())     //1
+        //查看第二个函数修改后闭包a的值     
+        console.log(outerTest1.innerTest2())     //2
+        //再次查看第一个函数闭包a的值(观察是否指向同一个地址值)
+        console.log(outerTest1.innerTest1())     //2 (验证通过)
+
+
+        //验证重新调用外部函数是否会产生新的闭包
+        var outerTest2 = test()
+        //查看第一个函数闭包a的值（如果为1，说明产生新闭包，如果为2，则说明仍然指向上方的闭包地址（想想也不可能。因为产生了新对象outerTest2））
+        console.log(outerTest2.innerTest1())     //1
+
+        /*********************************************************************************************************************/
+
+
+        var add = function(x) { 
+            var sum = 1; 
+            var tmp = function(x) {   
+                sum = sum + x;    //sum是闭包，但是x不是闭包。因为按照作用域链寻找，先找到自身的形参x，而不是外部函数的x。如果把tmp的形参改为y，那么tmp的内部将构成闭包。输出的结果为3
+                return tmp;    
+            } 
+            tmp.toString = function() { 
+                return sum; 
+            }  
+            return tmp; 
+        } 
+        alert(add(1)(2)(3));   //6
+
+
+        /*********************************************************************************************************************/
+        window.onload = function(){
+        //循环绑定事件监听的闭包写法
+        var btns = document.getElementsByTagName('button')            //获得是伪数组，伪数组中无length属性，每次需要计算length,影响性能。所以不要在循环中使用。因该先做预处理得到固定的值
+
+        for(var i = 0, length = btns.length; i<length;i++){
+            /*btns[i].index = i    //普通写法：给要添加监听事件的元素身上添加一个属性，以保留i值
+            btns[i].onclick = function(){
+                alert("第"+(this.index+1)+"个")
+            }*/
+            (function(i){
+                btns[i].onclick = function(){
+                    alert("第"+(i+1)+"个")
+                }
+            })(i)
+        }
+    }
+
+
+    /***************************************************************************************************************************/
+    function love1(){
+     var num = 223;
+     var me1 = function() {
+           console.log(num);
+     }
+     num++;                                 //在操作外部函数的变量时，内部函数竟然也可以观察到。再次验证了，闭包的本质是外部函数的变量。只是内部函数将其保留住了，所以他两个看的是同一个
+     return me1;
+    }
+    var loveme1 = love1();
+    loveme1();   //输出224
+    </script>
 </head>
 <body>
-    
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
 </body>
 </html>
