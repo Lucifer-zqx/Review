@@ -295,7 +295,35 @@
 	9. 减少http请求次数；
 	10. 缓存策略。
 
-##### 11.  脱离文档流的元素的特点
+##### 10. 媒体查询@media
+
+​	media属性用于为不同的屏幕媒介类型规定不同的样式，max-width：375px，屏幕大于375px时样式不生效，	min-width：1024px，屏幕大于1024px时样式才生效。
+
+​	```@media screen and (max-width:375px)```
+
+##### 11. 标签a点击虚框问题解决
+
+   - 问题描述：当使用firefox、遨游、ie的几个版本浏览器时，会出现点击a标签，在a标签的外框出现一层虚线框
+
+   - 解决方案:
+
+      
+
+     ```
+     a,a:hover,a:active,a:visited,a:link,a:focus{ 
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+      -webkit-tap-highlight-color: transparent;
+      outline:none;
+      background: none;
+      text-decoration: none;
+      border:none;
+      -webkit-appearance: none;
+     }
+     ```
+
+     
+
+##### 12.  脱离文档流的元素的特点
 
  	1. 块级元素：
  	 - 脱离文档流后，元素不再单独占一行，而是由内容撑开;
@@ -307,7 +335,7 @@
 
 
 
-##### 12. 关于定位
+##### 13. 关于定位
 
  	1. 相对定位
  	 - position：relative；
@@ -339,13 +367,13 @@
  		- 当其中一个为auto时,调整属性值为auto属性以满足等式
  		- 当left/right为auto，margin也为auto，优先调整left/right的值，其次为width，最后为margin。
 
-##### 13.自适应布局方法
+##### 14.自适应布局方法
 
 ```
 见代码
 ```
 
-##### 14. 圣杯布局
+##### 15. 圣杯布局
 
 ```
 见代码
