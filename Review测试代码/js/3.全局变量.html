@@ -7,7 +7,16 @@
     <title>全局变量</title>
 
     <script>
-        
+        //在全局执行上下文的声明的变量就是全局变量，在函数上下文中若不用关键字var声明，也是全局变量
+
+        var a = 1
+        function test(){
+            b = 2
+            console.log(a)
+        }
+        test()
+        console.log(b)
+
 
     </script>
 </head>
