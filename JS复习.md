@@ -95,5 +95,8 @@ GET请求在URL中传送的参数是有长度限制的，而POST么有。
 GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。
 
 GET参数通过URL传递，POST放在Request body中
+
+
+一点骚的东西：不论是get请求还是post请求其本质都是TCP/IP连接。但是：GET产生一个TCP数据包；POST产生两个TCP数据包。换而言之：对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据），而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。（并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。）
 ```
 
