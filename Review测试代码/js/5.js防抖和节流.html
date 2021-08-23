@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js防抖和节流</title>
+    <style>
+        body{
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text">
+    <script>
+        //应用场景：有些时候我们连续调整窗口宽度，或者滑动滚动条，输入框输入内容请求ajax都会连续触发某些事件
+        //会给浏览器增加很大的负担，影响用户体验。所以采取js防抖与节流解决这个问题
+
+        //防抖的实现
+        function debounce(func,wait=200){
+            if(typeof func !== "function"){
+                throw new Error("type error!")
+            }
+            let timeId = null
+            return function(){
+                let context = this
+                let args = arguments
+                if(timeId){
+                    clearTimeout(timeId)   //闭包
+                }
+                timeId  = setTimeout(function(){
+                    func.apply(context,args)   //apply第二个参数必须为数组形式，call可以跟参数形式
+                },wait)
+            }
+        }
+
+        function analogyAjax(){
+            console.log("发送了ajax请求")
+        }
+        //debounce
+        window.addEventListener('scroll',debounce(analogyAjax))
+
+
+
+        //节流。上面的场景不在最后超过wait事件后触发，而是在一段连续事件内，每隔一段时间触发
+        //时间戳法实现
+        function throtle1(func,wait=500){
+            let pre = Date.now()
+            return function(){
+                let context = this
+                let next = Date.now()
+                if(next-pre>wait){
+                    func.apply(context,arguments)
+                    pre = Date.now()
+                }
+            }
+        }
+        //定时器法实现
+        function throtle2(func,wait=500) {
+            let timeId = null
+            return function () {
+                let context =this
+                if(!timeId){
+                    timeId = setTimeout(function(){
+                        func.apply(context,arguments)
+                        timeId =null
+                    },wait)
+                }
+            }
+        }
+        window.addEventListener('scroll',throtle2(analogyAjax))
+
+    </script>
+</body>
+</html>
