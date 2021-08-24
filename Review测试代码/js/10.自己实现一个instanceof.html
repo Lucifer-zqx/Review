@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现instanceof</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //作用：判断构造函数的显示原型属性prototype是否出现在对象的原型链上
+    function myInstanceOf(obj,constructor){
+        let proto = obj.__proto__
+        constructor = constructor.prototype
+        while(true){
+            if(!proto) return false
+            if(proto === constructor) return true
+            proto=proto.__proto__
+        } 
+    }
+    console.log(myInstanceOf(HTMLElement,Object))
+</script>
+</html>

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js的继承方式</title>
+</head>
+<body>
+    <script>
+
+        /*******************************************原型链的继承方式*******************************************************/
+        function Animal(){}
+        Animal.prototype.way = function(){console.log("四条腿行走")}
+        function Cat(){}
+        Cat.prototype = new Animal()          //通过animal的隐式原型属性访问到animal的方法
+
+        Cat.prototype.speak = function(){console.log('喵喵喵')}   //给猫添加特有的方法或者属性（实际位置在animal的实例对象身上）
+        var cat = new Cat()    //new一个猫
+        cat.speak()
+        cat.way()
+
+
+
+        /***********************************************构造继承********************************************************/
+        function Dog(name){
+            Animal.call(this)             //将新创建的对象绑定到animal父属性身上,由于修改了this
+            this.name = name || 'Tom'
+
+        }
+        var dog = new Dog('kittty')
+        console.log(dog.name)
+        console.log(dog)
+
+        
+    </script>
+</body>
+</html>

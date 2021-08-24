@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托的简单实现</title>
+    <style lang="css">
+        .p{
+            width: 300px;
+            height: 300px;
+            background-color: azure;
+        }
+        .inner1{
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+            margin-bottom: 100px;
+        }
+        .inner2{
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class= 'p'>
+        <div class='inner1'></div>
+        <div class='inner2'></div>
+    </div>
+</body>
+<script>
+
+    //通过事件委托，完成不同子事件的处理
+    function func(e){
+        let target = e.target || e.srcElement                  //target是dom的一个元素节点,是一个HTMLElement对象
+
+        if(target.className==='inner1'){
+            console.log(target instanceof HTMLElement)
+            alert(1)
+        }else{
+            alert(2)
+        }
+    }
+    let p = document.querySelector('.p')
+    p.addEventListener('click',func,false)
+</script>
+</html>

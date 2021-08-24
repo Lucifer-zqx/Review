@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件模型</title>
+    <style>
+        .one{
+            width: 400px;
+            height: 400px;
+            background-color: antiquewhite;
+        }
+        .two{
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+        .three{
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+        }
+        .four{
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="one">
+        <div class="two">
+            <div class="three">
+                <div class="four">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    
+    var a = document.getElementsByClassName('one')[0]
+    var b = document.getElementsByClassName('two')[0]
+    var c = document.getElementsByClassName('three')[0]
+    var d = document.getElementsByClassName('four')[0]
+
+    //冒泡阶段触发
+    a.addEventListener('click',function(){console.log(1)},false)
+    b.addEventListener('click',function(){console.log(2)},false)
+    c.addEventListener('click',function(){console.log(3)},false)
+    d.addEventListener('click',function(){console.log(4)},false)
+    //捕获阶段触发
+    a.addEventListener('click',function(){console.log(1)},true)
+    b.addEventListener('click',function(){console.log(2)},true)
+    c.addEventListener('click',function(){console.log(3)},true)
+    d.addEventListener('click',function(){console.log(4)},true)
+
+    //如果一个元素同时又冒泡和捕获事件，那么按照w3c的DOM2事件模型，因该先触发元素捕获阶段的事件，在触发冒泡阶段的事件
+
+
+    //IE浏览器与其他浏览器给元素绑定的事件的方式不同，所以要做到浏览器兼容，因该写如下代码
+    /* if(a.attachEvent){
+        //ie事件模型的事件类型需要加on
+        a.attachEvent('onclick',function(){})
+    }else{
+        a.addEventListener('click',function(){}.false/true)
+    } */
+    
+</script>
+</html>

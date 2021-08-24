@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new运算符做了什么</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function Person(name , age){
+        this.name=name
+        this.age = age
+        
+    }
+    Person.prototype.speak = function (){console.log('HELLO')}
+
+    var p = new Person('zhangsan',20)
+    console.log(p.name)
+    console.log(p.age)
+    p.speak()
+
+    /*****手写模拟上述函数的过程*****/
+
+    function myNewFunction(){
+        var obj = new Object()   //创建一个空对象
+        Constructor = [].shift.call(arguments)      //取出第一个参数，也就是构造函数
+        obj.__proto__ = Constructor.prototype       //修改实例对象的隐式原型属性指向 构造函数的显示原型属性
+        var result = Constructor.apply(obj,arguments)            //因为shift会修改原数组，所以利用函数的apply方法，将修创建的实例对象在构造函数中，执行一遍
+        if(typeof result === 'object'){
+            obj = result                                         //如果函数的调用结果的返回值为object类型，那么返回这个object，否则返回obj
+        }
+        return obj
+    }
+
+    var p2 = myNewFunction(Person,'Tom',12)
+    console.log(p2.name)
+    console.log(p2.age)
+    p2.speak()
+</script>
+</html>
