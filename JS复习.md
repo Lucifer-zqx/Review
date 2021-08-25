@@ -162,6 +162,25 @@ web资源的缓存策略一般由服务器来指定，分为强缓存策略和�
 #### 17.浏览器同源策略
 
 ```
-同源策略：一个域下的js脚本在未经允许的情况下
+同源策略：一个域下的js脚本在未经允许的情况下，不能够访问另一个域的内容。同源指的是协议、端口号、域名必须全部相同。
+主要限制三个方面：
+	第一个当前域下的js脚本不能够访问其他域的cookie。localstorage、indexDB，
+	第二个当前域下的js脚本不能够操作其他域下的DOM，
+	第三个是当前域下ajax无法发送跨域请求。
+```
+
+#### 18. DOM常规操作
+
+```html
+见代码
+
+面试题：innerHTML，outerHTML，innerText，outerText
+	<div><p>inner text</p></div>
+
+innerHtml：<p>inner text</p>不包括该HTMLElement自身
+outerHTML: <div><p>inner text</p></div>包括该HTMLElement自身
+innerText：inner text ：只包含文字
+outerText：inner text ：修改outerText时，会将内层html标签也当做文字，读取仍然只是文本元素inner text
+	
 ```
 

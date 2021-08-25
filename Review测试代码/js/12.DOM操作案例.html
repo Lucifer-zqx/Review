@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM操作案例</title>
+</head>
+
+<body>
+    <button>添加</button>
+    <button>移除</button>
+    <button>替换</button>
+    <button>插入</button>
+
+    <div class='outer container' id='outer'>
+        <div id='inner'>inner</div>
+    </div>
+
+    <input type="text" name='xixi' id='haha' placeholder="heihei">
+</body>
+
+<script>
+    //创建DOM节点的方法:
+    //createDocumentFragment(node),createElement(node),createTextNode(text)
+    var a = document.createDocumentFragment()  //返回值是一个DOM节点片段
+    var b = document.createElement('li')   //创建一个标签元素DOM
+    var c = document.createTextNode('methods of create dom node') //创建一个文本节点
+    b.appendChild(c)       //往a的最后追加一个c
+    a.appendChild(b)
+
+   
+
+
+    //DOM的添加、移除、替换、插入
+    var main = document.getElementsByTagName('body')[0]
+   
+    var btns = document.getElementsByTagName('button')
+    btns[1].onclick = function() {
+       main.removeChild(main.childNodes[0])
+    }
+    btns[2].onclick = function() {
+       main.replaceChild(b, a)
+    }
+    btns[3].onclick = function() {
+       main.insertBefore(b, a)
+    }
+    btns[0].onclick = function() {
+        main.appendChild(a)
+    }
+
+
+    //获取父节点（父元素）                HTMLElement对象的属性parentNode(parentElement)
+
+    //获取子节点                         HTMLElement对象的属性childern(childNodes)返回的是一个数组
+    //获取第一个（最后一个）              HTMLElement对象属性的firstElementChild(lastElementChild)
+    //获取下一个（上一个）兄弟节点         HTMLElement对象属性的nextElementSibling(previousElementSibling)
+    
+    
+    //属性操作(搞清楚什么是属性：写在标签上的name=value的结构)
+
+    //HTMLElement对象的属性attributes  获取一个{name：value}的数组
+
+    //操作属性的api
+    //获取属性 el.getAttribute('class');
+    // 设置属性值 el.setAttribute('class', 'highlight');
+
+    // 判断、移除属性
+    //el.hasAttribute('class');
+    //el.removeAttribute('class');
+    
+</script>
+
+</html>
