@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js的深浅拷贝相关问题</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //浅拷贝：只是复制了对象的引用，当对象改变时，复制的对象也会发生个改变
+    //深拷贝：完全创建一个与原来相同的新对象
+
+    //对象的深浅拷贝
+    function shallowCopy(object) {
+        if(!object || typeof object !== 'object') return object   //说明属性值不为对象类型
+        
+        let newObject = Array.isArray(object)? []:{}  //该方法只能拷贝一层，后面的属性值如果仍为对象形式，则只能是浅拷贝
+
+        for (const key in object) {
+            if (Object.hasOwnProperty.call(object, key)) {
+                newObject[key] = object[key];        //只拷贝一层
+            }
+        }
+        return newObject
+     }
+     const obj = {a:1,b:{c:3}}
+     let res = shallowCopy(obj)
+     console.log(res === obj)  //第一层不为同一对象，输出false，但是若要修改第二层的属性值，拷贝的对象也会发生改变
+
+     //对象的深拷贝
+     function deepCopy(object) {
+        if(!object || typeof object !== 'object') return object   //说明属性值不为对象类型
+        
+        let newObject = Array.isArray(object)? []:{}  
+
+        for (const key in object) {
+            if (Object.hasOwnProperty.call(object, key)) {
+                newObject[key] = deepCopy(object[key]);     //递归调用深拷贝，判断属性值是引用类型还是基本类型     
+            }
+        }
+        return newObject
+     }
+
+     let res2 = deepCopy(obj)
+
+
+     //Object.assign()拷贝（对象浅拷贝）
+     const obj2 = {a:1,b:{c:2}}
+
+     let a = Object.assign({a:3},obj2)    //拷贝过后，相同的属性会被后方的源对象属性覆盖
+     console.log(a)  //浅拷贝
+     let b = JSON.parse(JSON.stringify(a)) //利用JSON.parse()实现深拷贝
+     
+
+</script>
+</html>

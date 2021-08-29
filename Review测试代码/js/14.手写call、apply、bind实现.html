@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写call、apply、bind实现</title>
+</head>
+
+<body>
+    <script>
+        //call方法
+        Function.prototype.myCall = function (context) { //参数为传入的调用函数的对象
+            if (typeof this !== 'function') {
+                throw new Error('调用类型错误，只能是函数')
+            }
+
+            //判断context是否存在，如果不存在则设置为window
+            context = context || window
+
+            //获取传入函数的参数
+            let args = [...arguments].slice(1) //去除第一个参数
+
+            //将函数加在context的属性上，以便调用函数时，this指向的是该对象
+            context.fn = this
+
+            //调用函数得到结果
+            let res = context.fn(args)
+
+            //删除context上的属性
+            delete context.fn
+
+            //返回结果
+            return res
+
+        }
+
+        //apply方法(区别Apply的参数必须为数组)
+        Function.prototype.myApply = function (context) { //参数为传入的调用函数的对象
+            if (typeof this !== 'function') {
+                throw new TypeError('调用类型错误，只能是函数')
+            }
+
+            //判断context是否存在，如果不存在则设置为window
+            context = context || window
+
+            //获取传入函数的参数
+
+            let args = undefiend
+            if (arguments[1]) {
+                args = [...arguments[1]]
+            } else {
+                args = []
+            }
+
+            //将函数加在context的属性上，以便调用函数时，this指向的是该对象
+            context.fn = this
+
+            //调用函数得到结果
+            let res = context.fn(args)
+
+            //删除context上的属性
+            delete context.fn
+
+            //返回结果
+            return res
+
+        }
+
+        //bind方法(作用：修改函数的this，并生成一个新的函数)
+
+        Function.prototype.myBind = function (context) {
+            // 判断调用对象是否为函数
+            if (typeof this !== "function") {
+                throw new TypeError("Error");
+            }
+
+            // 获取参数
+            var args = [...arguments].slice(1),
+                fn = this;
+
+            return function Fn() {
+                // 根据调用方式，传入不同绑定值
+                return fn.apply(
+                    this instanceof Fn ? this : context,
+                    args.concat(...arguments)
+                );
+            };
+        };
+    </script>
+</body>
+
+</html>
