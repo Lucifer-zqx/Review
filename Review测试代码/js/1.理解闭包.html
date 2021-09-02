@@ -33,7 +33,7 @@
         var i = 0;
         function outerFn(){
             function innnerFn(){
-                i++;
+                i++;              //指向全局作用域下的那块内存地址
                 console.log(i);
             }
             return innnerFn;

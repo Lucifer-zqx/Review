@@ -1,6 +1,6 @@
 ### JavaScript
 
-	#### 1. 函数提升与变量提升
+#### 1. 函数提升与变量提升
 
 ```
 见代码
@@ -119,11 +119,53 @@ GET参数通过URL传递，POST放在Request body中
 
 #### 13. 继承的几种方式
 
-```
+```js
 js是基于原型链继承的
 
-1.原型链继承
+1.原型链继承:缺点：创建的子类可以访问到超类的所有实例属性，无法向构造函数传参
+	//修改子类的prototype为父类的实例对象
+	SubType.prototype = new ParentType()
 
+2.构造函数继承
+	function ParentType(){
+        this.color = ['red','green','blue']
+    }
+	function SubType(){
+        ParentType.call(this)
+    }
+
+3.组合继承
+	function ParentType(name){
+        this.name =name
+        this.color = ['red','green','blue']
+    }
+	function SubType(name,age){
+        ParentType.call(this,name)
+        this.age = age
+    }
+	
+4.原型式继承:借用某实例对象，直接生成其构造函数的子类
+	function ExtendFunc(obj){
+        function F(){}	//要创建的子类构造函数
+        F.prototype = obj
+        return new F()
+    }
+
+5.寄生继承：利用上面的原型式继承，创建一个子类，再为这个子类添加属性方法
+	function createAnother(obj){
+        var cloneObj = object(obj)
+       	cloneObj.sayHi = function(){console.log('hi')}
+        return cloneObj
+    }
+	
+6.寄生组合继承:与寄生不同的是寄生组合只复制父类的原型对象
+	function inheritProtoType(subType,parentType){
+        var clone = object(parentType.prototype)	//创建一个父类原型的对象
+        clone.constructor = subType	//弥补子类构造函数的丢失
+        subType.prototype = clone	//将子类的原型对象设置为新建的对象
+ 
+    }
+	
 ```
 
 #### 14. js事件模型
@@ -218,5 +260,20 @@ outerText：inner text ：修改outerText时，会将内层html标签也当做�
 toPrecision():指的是有效数字
 toFixed():指的保留小数点后几位
 Math.round():将一个小数四舍五入到一个整数
+```
+
+#### 22. 前端模块化
+
+```
+1.commonjs
+	通过require引入，module.exports=(exports.)暴露,是服务器端的解决方案，以同步的方式引入模块，因为文件都放在服务器本地磁盘，加载速度非常快，因此以同步方式加载没问题。浏览器端，因为需要发送网络请求，所以异步加载更加合适。
+	
+2.AMD
+	实现为requirejs，推崇前置依赖，定义模块就需要声明依赖。依赖的执行时机：加载完成后，就开始执行。
+3.CMD
+	实现为seajs。使用就近依赖，只有使用到时再去require。依赖的执行时机：加载完成后并不执行，再回调里用到，再require执行
+4.ES6
+	export/export default 暴露
+	import	引入
 ```
 
