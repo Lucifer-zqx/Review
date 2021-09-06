@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.vue中的数据代理</title>
+</head>
+<body>
+    <script>
+        /*
+            何为代理？用一个对象去接管访问/操作另一个对象中的属性。
+            Vue中通过vm对象去接管访问/操作data的数据
+        */
+
+        //vue中data的数据
+        let data = {
+            name:'zhangsan',
+            age:18
+        }
+
+        //简化vm
+        let vm = {}
+        Object.defineProperty(vm,"name",{
+            get(){
+                return data.name
+            },
+            set(newValue){
+                data.name = newValue
+            }
+        })
+        Object.defineProperty(vm,"age",{
+            get(){
+                return data.age
+            },
+            set(newValue){
+                data.age = newValue
+            }
+        })
+
+        console.log(vm)          //观察发现，vm完成了对data的数据代理
+
+
+    </script>
+</body>
+</html>
