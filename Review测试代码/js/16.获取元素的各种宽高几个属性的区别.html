@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取元素的各种宽高几个属性的区别</title>
+    <style>
+        .box{
+            width: 400px;
+            height: 400px;
+            background-color: #bfa;
+            border: 20px solid red;
+            padding: 10px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .inner{
+            height: 600px;
+            width: 600px;
+            background-color: sandybrown;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id='a'>
+        <div class="inner" id='b'>
+            
+        </div>
+    </div>
+</body>
+<script>
+    let a = document.getElementById('a')
+    //由代码可以得出offsetWidth和offsetHeight获取的是盒子的内容区(width/height+padding)+border的大小
+    console.log(a.offsetWidth,a.offsetHeight)//420 、420
+
+
+    //offsetParent为元素的包含块，什么是元素的包含块？
+        //1.元素未开启定位：包含块为父级元素
+        //2.元素开启定位：当外层元素全部未开启定位，则为html(标准模式)或为body(quick模式)
+                        // 当外层元素开启定位，则为最近的开启定位的元素
+    let b = document.getElementById('b')
+    //由代码可以看出：offsetTop、offsetLeft是相对于包含块的内边边距边界定位
+    console.log(b.offsetParent,b.offsetTop,b.offsetLeft) //body、10、10
+
+
+    //width+padding-滚动条的长/宽(如果有的话)
+    console.log(a.clientWidth,a.clientHeight)//383+10+10=403、400+10+10=420
+
+    
+    //由代码可知：修改border后影响这个属性
+    //clientTop，clientLeft表示一个元素顶部边框的宽度
+    console.log(a.clientTop,a.clientLeft)
+
+
+    //innerWidth，innerHeight 是一个只读属性
+    //表示浏览器视口（viewport）宽度（单位：像素），如果存在滚动条则包括它。
+    console.log(window.innerWidth,window.innerHeight);
+
+
+    //整个浏览器的宽高
+    console.log(window.outerWidth,window.outerHeight);
+
+
+    //scrollTop、scrollLeft(滚动条滚过的距离)  
+    a.addEventListener('scroll',function(){
+        //console.log(a.scrollTop,a.scrollLeft)
+    })
+
+
+    //scrollWidth、scrollHeight
+    a.addEventListener('scroll',function(){
+       // console.log(a.scrollWidth,a.scrollHeight)
+    })
+
+
+    //scrollWidth、scrollHeight
+    window.addEventListener('scroll',function(){
+        console.log(window.scrollX,window.pageYOffset)
+    })
+    
+</script>
+</html>
