@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03.vue的Virtual Dom算法</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //如何用JS对象描述一个节点？三个条件：节点名称，节点属性，节点的子节点数组
+    function Element(tagName,attr,children){
+        this.tagName = tagName
+        this.attr = attr
+        this.children = children
+    }
+
+    //创建一个JS DOM树函数
+    function el(tagName,attr,children){
+        return new Element(tagName,attr,children)
+    }
+
+    /* 
+        如下DOM树如何表示？
+        <ul id='list'>
+        <li class='item'>1</li>
+        <li class='item'>2</li>
+        <li class='item'>3</li>
+    </ul>
+    */
+
+   var virtualDom = el('ul',{id:'list'},[
+       el('li',{class:'item'},['1']),
+       el('li',{class:'item'},['2']),
+       el('li',{class:'item'},['3']),
+
+   ])
+   //console.log(virtualDom)
+
+   //根据虚拟DOM创建真实Dom
+    Element.prototype.render = function(){
+        let el = document.createElement(this.tagName) //根据tagName创建元素节点
+        let props = this.attr   //保存属性数据
+        for(let propName in props){
+            let propValue = props[propName]
+            el.setAttribute(propName,propValue)
+        }
+        let children = this.children || []  //遍历子节点
+        children.forEach( child => {
+            var childEl = (child instanceof Element)?   //子节点类型?元素节点：文本节点
+            child.render():  //元素节点，递归调用render
+            document.createTextNode(child); //文本节点直接创建文本节点
+            el.appendChild(childEl)  //追加到父节点上
+        })
+        return el
+    }
+    let ulRoot = virtualDom.render()  //渲染真实DOM
+    document.body.appendChild(ulRoot)  //追加到body身上
+
+
+    //当节点更新时
+    //深度优先遍历新旧虚拟DOM树，找出不同，放入patches中
+    
+
+    //差异对比：如果把新旧DOM树的节点看做是一个英文字母，那么问题就转化成了求两个文本的最小编辑距离的问题
+
+    //根据不同点，操作DOM树，以完成更新。
+
+
+</script>
+</html>

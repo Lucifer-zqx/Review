@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向数据绑定的实现</title>
+</head>
+<body>
+    <label for="hello">hello word</label><input  id= 'hello' type="text" />
+    <div id='app'>
+        <input type="text" v-model='data'>
+        {{data}}
+    </div>
+
+</body>
+<script>
+    var obj = {}
+    Object.defineProperty(obj,'hello',{
+        set:function(newValue){
+            document.getElementById('hello').value = newValue
+            
+        }
+    })
+
+    document.addEventListener('keyup',function(e){
+        obj.hello = e.target.value
+    })
+
+    //三部曲：
+    //1.将model的数据绑定到view层
+    //2.将view层的变化与DOM元素的表现结合（实现数据的响应式：Object.defiendProperty）
+    //3.view层的数据变化引起model层的改变(发布订阅模式实现)
+
+    /* 前置知识，劫持容器的所有子节点的操作
+    function nodeToDocumentFragment(node){
+        var flag = document.createDocumentFragment()
+        var child
+        while (child = node.firstChild) {
+            console.log(node)
+            flag.appendChild(child)
+        }
+        return flag
+    }
+    var dom = nodeToDocumentFragment(document.getElementById('app'))
+    console.log(dom)
+    document.getElementById('app').appendChild(dom) */
+
+    function comile(node,vm){
+        let regex = /\{\{(.*)\}\}/
+
+        //节点元素
+        if(node.nodeType === 1){
+            let attr = node.attributes
+            for(let i = 0;i<attr.length;i++){
+                if(attr[i].nodeName === 'v-model'){
+                    let name = attr[i].nodeValue
+                    //将v-model绑定的data值赋予节点(由此看出v-model必须为表单数据，因为只有表单数据有value值)
+                    node.addEventListener('input',e=>{
+                        vm[name] = e.target.value
+                    })
+                    
+                    node.value = vm[name]
+                    node.removeAttribute('v-model')
+                }
+            }
+        }
+        //文本节点
+        if(node.nodeType === 3){
+            if(regex.test(node.nodeValue)){
+                let name = RegExp.$1
+                name = name.trim()
+                node.nodeValue = vm[name]
+            }
+        }
+    }
+    //将元素转化为documentfragment
+    function nodeToFragment(node,vm){
+        let flag = document.createDocumentFragment()
+        let child
+        while(child = node.firstChild){
+            comile(child,vm)
+            flag.appendChild(child)
+        }
+        return flag
+    }
+    //创建响应式数据
+    function definedReactive(obj,key,val){
+        Object.defineProperty(obj,key,{
+            get(){
+                return val
+            },
+            set(newValue){
+                if(newValue === val) return
+                val = newValue
+                console.log(val)
+            }
+        })
+    }
+
+    //将元数据映射到vm实例对象上
+    function observe(obj,vm) {
+        Object.keys(obj).forEach( key =>{
+            definedReactive(vm,key,obj[key])
+        })
+    }
+
+    //Vue的构造函数
+    function Vue(options){
+        this.data = options.data
+        //完成响应式数据
+        observe(this.data,this)
+
+        let id = options.el
+        let dom = nodeToFragment(document.getElementById(id),this)
+
+        //编译完成后返回app容器
+        document.getElementById(id).appendChild(dom)
+    }
+
+    //创建vue实例对象
+    const vm =new Vue({
+        el:'app',
+        data:{
+            data:"hello world",
+        }
+    })
+</script>
+</html>
