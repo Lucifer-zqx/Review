@@ -379,3 +379,19 @@
 见代码
 ```
 
+#### 16. flex布局
+
+```
+容器属性:
+	flex-direction --主轴方向
+	flex-wrap      --当元素占满后,如何换行
+	justify-content  --主轴元素布局
+	aligin-item      --侧轴的元素布局
+元素属性:
+	order			--定义元素出现的顺序,数值越小越靠前
+	flex-grow       --未占满行时,元素是否延申
+	flex-shrink     --占满行时,元素是否伸缩
+	flex-basis		--浏览器根据这个属性，计算主轴是否有多余空间(默认为auto)
+	align-self		--属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。(默认继承父元素属性)
+```
+

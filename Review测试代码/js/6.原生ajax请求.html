@@ -12,7 +12,7 @@
     <script>
         let xhr = new XMLHttpRequest()  //创建一个xhr对象
         xhr.open("GET", "https://www.baidu.com",true) //建立连接，true表示异步请求，false表示同步
-        xhr.send()           //参数：GET请求为null，Post为请求体内容
+        
         xhr.onreadystatechange = function () {
             if(xhr.readyState === 4 && xhr.status === 200 ){
                 console.log("success")
@@ -20,6 +20,7 @@
                 console.log('failure')
             }
         }
+        xhr.send()           //参数：GET请求为null，Post为请求体内容
     </script>
 </body>
 
