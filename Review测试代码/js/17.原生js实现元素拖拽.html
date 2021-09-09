@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原生js实现元素拖拽</title>
+    <style>
+        .calculator{
+            position: absolute;
+            background-color: red;
+            display: block;
+            width: 218px;
+            height: 280px;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div class='calculator' id='drag'></div>
+</body>
+<script>
+    //未做连浏览器的兼容处理
+    var drag = document.getElementById('drag')
+    drag.onmousedown = function(e){
+        var diffLeft = e.clientX - drag.offsetLeft
+        var diffTop = e.clientY - drag.offsetTop
+
+        document.onmousemove = function(e){
+            var left = e.clientX-diffLeft
+            var top =e.clientY- diffTop
+            drag.style.left = left+'px'
+            drag.style.top = top+'px'
+        }
+        document.onmouseup = function(){
+            this.onmousemove = null
+            this.onmouseup = null
+        }
+    }
+</script>
+</html>
