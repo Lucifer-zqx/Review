@@ -269,7 +269,6 @@
 
 4. position+transform的方法
 
-   ![image-20210819150554133](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210819150554133.png)
 
 ##### 7. 实现有宽高的元素，行内元素的水平垂直居中
 

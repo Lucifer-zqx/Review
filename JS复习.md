@@ -145,7 +145,7 @@ js是基于原型链继承的
     }
 	
 4.原型式继承:借用某实例对象，直接生成其构造函数的子类
-	function ExtendFunc(obj){
+	function object(obj){
         function F(){}	//要创建的子类构造函数
         F.prototype = obj
         return new F()
