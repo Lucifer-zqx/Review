@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试数据结构代码</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function LinkList(length){
+
+//链表的节点
+function LinkNode(name,age){
+    this.name = name
+    this.age = age
+    this.next = null
+}
+
+this.linkList = null
+
+LinkList.prototype.addNode = function(name,age){
+    if(!this.linkList){
+        let linkNode = new LinkNode(name,age)
+        this.linkList = linkNode
+    }else{
+        //新节点
+        let linkNode = new LinkNode(name,age)
+        //指针指向第一个节点
+        let pointer = this.linkList
+        while(pointer.next !== null){
+            pointer = pointer.next
+        }
+        //出循环时说明，指针已经指向最后一个元素
+        pointer.next = linkNode
+        
+    }
+}
+}
+
+let l = new LinkList()
+l.addNode('zs',15)
+l.addNode('li',16)
+l.addNode('ww',17)
+l.addNode('zl',20)
+console.log(l.linkList)
+</script>
+</html>
