@@ -116,50 +116,47 @@ function LinkList(){
 
     //removeAt方法
     LinkList.prototype.removeAt = function(position){
+        if(position<0 || position>=this.length) return null
         let current = this.head
-        let previous = null
-        while(position--){
-            previous = current
-            current = current.next
-        }
-        //让前一个元素直接指向后一个
-        if(position === -1){
+        if(position === 0){
             this.head = current.next
         }else{
+            let index = 0
+            let previous = null
+
+            while(index++<this.length){
+                previous = current
+                current = current.next
+            }
+
+             //让前一个元素直接指向后一个
             previous.next = current.next
+
         }
 
-        //清除后一个元素的引用，防止内存泄露
-        current.next = null
-        
         //减少一个长度
         this.length--
+
         //返回被删除的元素
-        return current
+        return current.data
     }
 
     //remove方法
     LinkList.prototype.remove = function(data){
-        let current = this.head
-        let previous = this.head
-        while(current.next){
-            if(current.data === data){
-                previous.next = current.next
-                break
-            }
-            previous = current
-            current =current.next
-        }
-        //让前一个元素直接指向后一个
-        previous.next = current.next
-
-        //清除后一个元素的引用，防止内存泄露
-        current.next = null
-
-        //返回被删除的元素
-        return current
+        let position = this.indexOf(data)
+        this.length--
+        return this.removeAt(position)
     }
 
+    //isEmpty方法
+    LinkList.prototype.isEmpty = function(){
+        return this.length === 0? true:false
+    }
+
+    //size方法
+    LinkList.prototype.size = function(){
+        return this.length
+    }
 }
 
 let l = new LinkList()
