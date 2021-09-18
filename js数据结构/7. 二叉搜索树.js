@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试数据结构代码</title>
-</head>
-<body>
-    
-</body>
-<script>
-    function BinarySearchTree(){
+/**
+ *
+ *  二叉搜索树
+ */
+
+function BinarySearchTree(){
     
     //treeNode
     function Node(key){
@@ -22,10 +15,11 @@
     //root
     this.root = null
 
+    //插入节点
     BinarySearchTree.prototype.insert = function(key){
         //封装内部代码，不提供给用户使用
         function insertNode(relativeRoot,newNode){
-            if(relativeRoot.key >= newNode.key){
+            if(relativeRoot.key > newNode.key){
                 //插入的节点比相对根小，放入左侧
                 if(relativeRoot.left == null){
                     relativeRoot.left = newNode
@@ -57,11 +51,10 @@
     BinarySearchTree.prototype.preOrderTravesal = function(handler){
         preOrderTravesalNode(this.root,handler)
         //遍历的方法
-
         function preOrderTravesalNode(root,handler){
             if(root != null){
+                //处理节点
                 handler(root.key)
-
                 //遍历左子树
                 preOrderTravesalNode(root.left,handler)
                 //遍历右子树
@@ -69,13 +62,14 @@
             }
         }
     }
-    
+
     //中序遍历
     BinarySearchTree.prototype.midOrderTravesal = function(handler){
         function midOrderTravesalNode(root,handler){
             if(root !=null){
                 //左子树
                 midOrderTravesalNode(root.left,handler)
+                //处理节点
                 handler(root.key)
                 //右子树
                 midOrderTravesalNode(root.right,handler)
@@ -100,6 +94,54 @@
             }
         }
         postOrderTravesalNode(this.root,handler)
+    }
+
+    //最大值
+    BinarySearchTree.prototype.max = function(){
+        let node = this.root
+        while(node.right != null){
+            node= node.right
+        }
+        return node.key
+    }
+    //最小值
+    BinarySearchTree.prototype.min = function(){
+        let node = this.root
+        while(node.left != null){
+            node= node.left
+        }
+        return node.key
+    }
+
+    //搜索
+    BinarySearchTree.prototype.search = function(key){
+        let node = this.root
+        //循环方法
+       /*  while(node != null){
+            if(key<node.key){
+                node = node.left
+            }else if(key > node.key){
+                node = node.right
+            }else{
+                return true
+            }
+        }
+        return false */
+       
+        //搜索的递归方法
+        function searchNode(root,key){
+            if(root != null){
+                if(root.key>key){
+                    return searchNode(root.left,key)
+                }else if(root.key<key){
+                    return searchNode(root.right,key)
+                }else{
+                    return true
+                }
+            }
+            return false
+        }
+        return searchNode(node,key)
     }
 
     //删除
@@ -184,6 +226,8 @@
 
        
     }
+
+
 }
 
 let bst = new BinarySearchTree()
@@ -192,19 +236,8 @@ bst.insert(2)
 bst.insert(4)
 bst.insert(1)
 bst.insert(3)
-bst.insert(19)
-bst.insert(20)
-bst.insert(6)
+bst.insert(18)
 console.log(bst)
-
-var str = ''
-function handler(key){
-    str += key+'-'
-}
-// bst.preOrderTravesal(handler)
-// bst.midOrderTravesal(handler)
-// bst.postOrderTravesal(handler)
-bst.remove(2)
-console.log(str)
-</script>
-</html>
+console.log(bst.max())
+console.log(bst.min())
+console.log(bst.search(10))
