@@ -394,3 +394,13 @@
 	align-self		--属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。(默认继承父元素属性)
 ```
 
+#### 17. 去除inlineblock间距的方法
+
+```
+letter-spacing：0
+word-spacing:0
+font-size : 0
+去除html中的空白
+margin为负值
+```
+

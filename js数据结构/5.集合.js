@@ -84,8 +84,6 @@ function Collections(){
                 unionSet.add(key)
             }
         })
-
-        
         return unionSet
     }
 

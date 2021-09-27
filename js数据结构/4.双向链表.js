@@ -45,7 +45,6 @@ function DoublyList(){
                 current = current.next
             }
             return str.slice(0,-1)
-
         }else{
             //后=>前遍历
             let current = this.tail
