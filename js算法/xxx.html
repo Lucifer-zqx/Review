@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function bigNumberAdd(num1,num2){
+    let result = ''  //保存结果
+    let carry = false   //进位标志
+
+    let num1Arr = num1.split("")
+    let num2Arr = num2.split("")
+
+    //当数据不为空，计算未完成继续计算
+    while(num1Arr.length || num2Arr.length || carry){
+
+        //undefiend也会被转成0
+        carry += ~~num1Arr.pop() + ~~num2Arr.pop()
+
+        result =  carry % 10 + result 
+        carry = carry > 9
+    }
+    return result
+}
+
+console.log(bigNumberAdd("1227",'173'))
+
+function flatArr(arr){
+    if(!Array.isArray(arr)) return
+
+    const result = arr.reduce( (pre,item)=>{
+        return pre.concat(Array.isArray(item)? flatArr(item):item)
+    },[])
+
+    return result
+}
+
+console.log(flatArr([1,2,3,[4,5,6,[9,8,7]]]))
+</script>
+</html>
